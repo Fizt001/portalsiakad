@@ -26,6 +26,14 @@ const DEFAULT_GATEWAY_DATA = {
     cbt: null,
     guru: null,
     inventaris: null
+  },
+  helpdesk: {
+    is_active: true,
+    name: 'Helpdesk IT Yayasan',
+    whatsapp: '',
+    email: '',
+    hours: 'Senin - Sabtu: 07:00 - 16:00 WIB',
+    notes: 'Hubungi helpdesk jika mengalami kendala login akun, lupa password, atau pertanyaan teknis seputar sistem sekolah.'
   }
 };
 
@@ -53,6 +61,9 @@ async function fetchManagerTelemetry() {
             // Normalisasi URL agar langsung membuka subdomain tanpa /login
             if (portalData.urls.smk) portalData.urls.smk = portalData.urls.smk.replace(/\/login\/?$/, '');
             if (portalData.urls.smp) portalData.urls.smp = portalData.urls.smp.replace(/\/login\/?$/, '');
+          }
+          if (json.helpdesk) {
+            portalData.helpdesk = Object.assign(portalData.helpdesk || {}, json.helpdesk);
           }
           applyDataToUi();
           return;
@@ -167,6 +178,109 @@ function applyDataToUi() {
       }
     }
   });
+
+  // 6. Helpdesk Contact Mirroring
+  applyHelpdeskData();
+}
+
+// Mirror dynamic helpdesk contacts from SIAKAD Manager
+function applyHelpdeskData() {
+  const hd = portalData.helpdesk || {};
+  const isActive = hd.is_active !== false;
+  const floatingBtn = document.getElementById('floatingHelpdesk');
+  const footerSection = document.getElementById('footerHelpdeskCol');
+  const modalName = document.getElementById('hdModalName');
+  const modalHours = document.getElementById('hdModalHours');
+  const modalNotes = document.getElementById('hdModalNotes');
+  const modalWaBtn = document.getElementById('hdModalWaBtn');
+  const modalEmailBtn = document.getElementById('hdModalEmailBtn');
+  const footerWa = document.getElementById('footerHelpdeskWa');
+  const footerEmail = document.getElementById('footerHelpdeskEmail');
+  const footerHours = document.getElementById('footerHelpdeskHours');
+
+  if (!isActive) {
+    if (floatingBtn) floatingBtn.style.display = 'none';
+    if (footerSection) footerSection.style.display = 'none';
+    return;
+  }
+
+  if (floatingBtn) floatingBtn.style.display = 'flex';
+  if (footerSection) footerSection.style.display = 'block';
+
+  const name = (hd.name || 'Helpdesk IT Yayasan').trim();
+  const hours = (hd.hours || 'Senin - Sabtu: 07:00 - 16:00 WIB').trim();
+  const notes = (hd.notes || 'Hubungi tim bantuan jika terkendala akses masuk.').trim();
+  let rawWa = (hd.whatsapp || '').replace(/[^0-9]/g, '');
+  if (rawWa.startsWith('0')) {
+    rawWa = '62' + rawWa.substring(1);
+  }
+  const email = (hd.email || '').trim();
+
+  if (modalName) modalName.textContent = name;
+  if (modalHours) modalHours.textContent = hours;
+  if (modalNotes) modalNotes.textContent = notes;
+  if (footerHours) footerHours.textContent = hours;
+
+  // WhatsApp setup
+  if (rawWa) {
+    const defaultMsg = encodeURIComponent(`Halo ${name}, saya butuh informasi / bantuan mengenai Portal SIAKAD (yatindosystem.net).`);
+    const waUrl = `https://wa.me/${rawWa}?text=${defaultMsg}`;
+
+    if (modalWaBtn) {
+      modalWaBtn.href = waUrl;
+      modalWaBtn.onclick = null;
+      modalWaBtn.style.display = 'inline-flex';
+      const textSpan = modalWaBtn.querySelector('.hd-btn-text');
+      if (textSpan) textSpan.textContent = `Chat WhatsApp (+${rawWa})`;
+    }
+    if (footerWa) {
+      footerWa.href = waUrl;
+      footerWa.style.display = 'inline-flex';
+      const valSpan = footerWa.querySelector('.footer-contact-val');
+      if (valSpan) valSpan.textContent = `WhatsApp (+${rawWa})`;
+    }
+  } else {
+    if (modalWaBtn) {
+      modalWaBtn.href = 'javascript:void(0)';
+      modalWaBtn.onclick = () => showToast('Kontak WhatsApp belum diatur di Manager SIAKAD.');
+      const textSpan = modalWaBtn.querySelector('.hd-btn-text');
+      if (textSpan) textSpan.textContent = 'WhatsApp Belum Diatur';
+    }
+    if (footerWa) footerWa.style.display = 'none';
+  }
+
+  // Email setup
+  if (email) {
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent('Bantuan Portal SIAKAD')}`;
+    if (modalEmailBtn) {
+      modalEmailBtn.href = mailtoUrl;
+      modalEmailBtn.style.display = 'inline-flex';
+      const textSpan = modalEmailBtn.querySelector('.hd-btn-text');
+      if (textSpan) textSpan.textContent = email;
+    }
+    if (footerEmail) {
+      footerEmail.href = mailtoUrl;
+      footerEmail.style.display = 'inline-flex';
+      const valSpan = footerEmail.querySelector('.footer-contact-val');
+      if (valSpan) valSpan.textContent = email;
+    }
+  } else {
+    if (modalEmailBtn) modalEmailBtn.style.display = 'none';
+    if (footerEmail) footerEmail.style.display = 'none';
+  }
+}
+
+// Toggle Helpdesk Modal
+function toggleHelpdeskModal(isOpen) {
+  const modal = document.getElementById('helpdeskModal');
+  if (!modal) return;
+  if (isOpen) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  } else {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 }
 
 // Buka link modul di tab yang sama (tidak new tab)
