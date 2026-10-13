@@ -3,12 +3,13 @@
  * Caching strategy & offline support for PWA
  */
 
-const CACHE_NAME = 'portal-siakad-v3.6';
+const CACHE_NAME = 'portal-siakad-v3.7';
 
 const STATIC_ASSETS = [
   './',
   './index.html',
   './assets/css/style.css',
+  './assets/css/style.css?v=3.7',
   './assets/js/main.js',
   './manifest.json',
   './manifest.webmanifest',

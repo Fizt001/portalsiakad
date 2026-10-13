@@ -17,8 +17,38 @@
   <link rel="icon" type="image/svg+xml" href="assets/img/icons/icon.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192.png">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=3.7">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 13.54L4.82 12 3 12.83l9 4.17 9-4.17L19.18 12 12 15.54zm0 4.18L4.82 16.18 3 17.01l9 4.17 9-4.17L19.18 16.18 12 19.72z'/></svg>">
+  <style>
+    /* Khusus mode mobile & tablet (<= 992px): tulisan hero wajib center */
+    @media (max-width: 992px) {
+      .hero-content {
+        align-items: center !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .hero-pill {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        align-self: center !important;
+        text-align: center !important;
+        justify-content: center !important;
+        display: inline-flex !important;
+      }
+      .hero-title {
+        text-align: center !important;
+        width: 100% !important;
+      }
+      .hero-subtitle {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100% !important;
+      }
+    }
+  </style>
 </head>
 <body>
 

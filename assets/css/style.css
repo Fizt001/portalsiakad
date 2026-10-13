@@ -1414,6 +1414,29 @@ body {
     grid-template-columns: 1fr;
     gap: 28px;
   }
+  .hero-content {
+    align-items: center !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-pill {
+    margin: 0 auto !important;
+    align-self: center !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: inline-flex !important;
+  }
+  .hero-title {
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .hero-subtitle {
+    text-align: center !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
   .hero-visual-card {
     transform: none !important;
   }
