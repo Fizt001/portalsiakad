@@ -3,21 +3,25 @@
  * Caching strategy & offline support for PWA
  */
 
-const CACHE_NAME = 'portal-siakad-v3.8';
+const CACHE_NAME = 'portal-siakad-v4.0';
 
 const STATIC_ASSETS = [
   './',
   './index.html',
   './assets/css/style.css',
-  './assets/css/style.css?v=3.8',
+  './assets/css/style.css?v=3.9',
   './assets/js/main.js',
   './manifest.json',
   './manifest.webmanifest',
+  './favicon.png',
+  './apple-touch-icon.png',
   './assets/img/hero-banner.jpg',
-  './assets/img/icons/icon.svg',
   './assets/img/icons/icon-192.png',
   './assets/img/icons/icon-512.png',
-  './assets/img/icons/apple-touch-icon.png'
+  './assets/img/icons/icon-maskable-192.png',
+  './assets/img/icons/icon-maskable-512.png',
+  './assets/img/icons/apple-touch-icon.png',
+  './assets/img/icons/favicon-32x32.png'
 ];
 
 // Install: Cache essential shell
