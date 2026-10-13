@@ -23,9 +23,9 @@ const DEFAULT_GATEWAY_DATA = {
   urls: {
     smk: 'https://smk.yatindosystem.net',
     smp: 'https://smp.yatindosystem.net',
-    cbt: 'https://cbt.yatindosystem.net',
-    guru: 'https://guru.yatindosystem.net',
-    inventaris: 'https://sarpras.yatindosystem.net'
+    cbt: null,
+    guru: null,
+    inventaris: null
   }
 };
 
@@ -126,31 +126,44 @@ function applyDataToUi() {
 
   // 5. Module URLs & Status Badges
   const keys = ['smk', 'smp', 'cbt', 'guru', 'inventaris'];
-  const activeLabels = {
-    smk: 'Aktif',
-    smp: 'Aktif',
-    cbt: 'Siap Ujian',
-    guru: 'Aktif',
-    inventaris: 'Terhubung'
+  const moduleConfig = {
+    smk: { name: 'SIAKAD SMK', activeLabel: 'Aktif', defaultLabel: 'Masuk SIAKAD SMK' },
+    smp: { name: 'SIAKAD SMP', activeLabel: 'Aktif', defaultLabel: 'Masuk SIAKAD SMP' },
+    cbt: { name: 'CBT Ujian Online', activeLabel: 'Siap Ujian', defaultLabel: 'Masuk Portal CBT' },
+    guru: { name: 'Administrasi Guru', activeLabel: 'Aktif', defaultLabel: 'Akses Ruang Guru' },
+    inventaris: { name: 'Inventaris & Sarpras', activeLabel: 'Terhubung', defaultLabel: 'Kelola Inventaris' }
   };
 
   keys.forEach((key) => {
-    const targetUrl = (portalData.urls[key] || '').trim();
+    const rawUrl = portalData.urls ? portalData.urls[key] : null;
+    const targetUrl = (rawUrl || '').trim();
     const btnLaunch = document.getElementById(`btnLaunch-${key}`);
     const statusEl = document.getElementById(`status-${key}`);
+    const isOnline = Boolean(targetUrl && targetUrl !== '#' && !targetUrl.startsWith('javascript:'));
 
     if (btnLaunch) {
-      btnLaunch.href = targetUrl || '#';
+      if (isOnline) {
+        btnLaunch.href = targetUrl;
+        btnLaunch.classList.remove('btn-launch-off');
+        btnLaunch.title = 'Buka ' + targetUrl;
+        btnLaunch.innerHTML = `<span>${moduleConfig[key].defaultLabel}</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
+      } else {
+        btnLaunch.href = '#';
+        btnLaunch.classList.add('btn-launch-off');
+        btnLaunch.title = `Modul ${moduleConfig[key].name} belum diaktifkan di Manager SIAKAD`;
+        btnLaunch.innerHTML = `<span>Modul Nonaktif</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
+      }
     }
 
     if (statusEl) {
-      if (targetUrl && targetUrl !== '#' && !targetUrl.startsWith('javascript:')) {
+      if (isOnline) {
         statusEl.className = 'status-indicator status-online';
-        statusEl.innerHTML = `<span class="dot-green"></span> ${activeLabels[key] || 'Aktif'}`;
+        statusEl.innerHTML = `<span class="dot-green"></span> ${moduleConfig[key].activeLabel}`;
         statusEl.title = 'Terhubung langsung ke server ' + targetUrl;
       } else {
         statusEl.className = 'status-indicator status-unconfigured';
-        statusEl.innerHTML = `<span class="dot-gray"></span> Belum Dikonfigurasi`;
+        statusEl.innerHTML = `<span class="dot-gray"></span> Nonaktif`;
+        statusEl.title = 'Modul belum diaktifkan di Manager SIAKAD';
       }
     }
   });
@@ -165,7 +178,7 @@ function navigateToModule(url, event) {
 
   const cleanUrl = (url || '').trim();
   if (!cleanUrl || cleanUrl === '#' || cleanUrl.startsWith('javascript:')) {
-    showToast('Modul ini sedang disiapkan.');
+    showToast('Modul ini belum diaktifkan di Manager SIAKAD.');
     return false;
   }
 

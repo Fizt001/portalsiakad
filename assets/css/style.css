@@ -680,6 +680,34 @@ body {
   transform: translateY(-2px);
 }
 
+.btn-launch-off {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  filter: none !important;
+  transform: none !important;
+}
+
+[data-theme="light"] .btn-launch-off {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #64748b !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-launch-off:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+  color: #cbd5e1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+[data-theme="light"] .btn-launch-off:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+  color: #334155 !important;
+}
+
 /* Card Header */
 .card-header-row {
   display: flex;
