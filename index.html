@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Layanan SIAKAD Terpadu | Satu Pintu Akses Ekosistem Sekolah</title>
   <meta name="description" content="Dashboard portal satu pintu untuk akses SIAKAD SMK, SIAKAD SMP, Ujian CBT, Administrasi Guru, dan Inventaris Sarana Prasarana Sekolah.">
+
+  <!-- PWA Web App Manifest & App Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#090d16">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Portal SIAKAD">
+  <link rel="apple-touch-icon" href="assets/img/icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="assets/img/icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192.png">
+
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 13.54L4.82 12 3 12.83l9 4.17 9-4.17L19.18 12 12 15.54zm0 4.18L4.82 16.18 3 17.01l9 4.17 9-4.17L19.18 16.18 12 19.72z'/></svg>">
 </head>
@@ -54,6 +66,15 @@
         </a>
 
         <div class="nav-actions">
+          <!-- PWA Install Button -->
+          <button class="pwa-install-btn" id="pwaInstallBtn" onclick="triggerPwaInstall()" aria-label="Pasang Aplikasi di HP" title="Pasang Portal SIAKAD di HP / Desktop">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+            <span class="nav-btn-text">Pasang App</span>
+          </button>
+
           <!-- Bantuan & Helpdesk Button -->
           <button class="helpdesk-nav-btn" onclick="toggleHelpdeskModal(true)" aria-label="Bantuan & Layanan IT" title="Pusat Bantuan & Layanan IT">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

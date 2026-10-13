@@ -405,3 +405,69 @@ document.addEventListener('DOMContentLoaded', () => {
   // Auto-sync telemetry every 60 seconds
   setInterval(fetchManagerTelemetry, 60000);
 });
+
+// ============================================================================
+// PWA INSTALLATION & SERVICE WORKER ENGINE
+// ============================================================================
+
+let deferredPrompt = null;
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => {
+        console.log('[PWA] Service Worker registered with scope:', reg.scope);
+      })
+      .catch((err) => {
+        console.warn('[PWA] Service Worker registration failed:', err);
+      });
+  });
+}
+
+// Listen for beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const pwaBtn = document.getElementById('pwaInstallBtn');
+  if (pwaBtn) {
+    pwaBtn.classList.add('pwa-ready');
+  }
+});
+
+// Listen for appinstalled event
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  const pwaBtn = document.getElementById('pwaInstallBtn');
+  if (pwaBtn) {
+    pwaBtn.style.display = 'none';
+  }
+  showToast('Portal SIAKAD berhasil dipasang sebagai aplikasi!');
+});
+
+// Trigger installation prompt
+async function triggerPwaInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      showToast('Memasang Portal SIAKAD ke perangkat Anda...');
+    }
+    deferredPrompt = null;
+  } else {
+    // Check if on iOS Safari or already standalone
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    if (isStandalone) {
+      showToast('Aplikasi Portal SIAKAD sudah terpasang di perangkat Anda.');
+      return;
+    }
+
+    if (isIos) {
+      showToast('Untuk pasang di iPhone/iPad: Ketuk ikon Bagikan (Share) di Safari, lalu pilih "Tambah ke Layar Utama".');
+    } else {
+      showToast('Untuk memasang: Buka menu browser (titik tiga) lalu pilih "Instal Aplikasi" atau "Tambahkan ke Layar Utama".');
+    }
+  }
+}
