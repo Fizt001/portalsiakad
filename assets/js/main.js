@@ -21,8 +21,8 @@ const DEFAULT_GATEWAY_DATA = {
     uptime: '99.98%'
   },
   urls: {
-    smk: 'https://smk.yatindosystem.net/login',
-    smp: 'https://smp.yatindosystem.net/login',
+    smk: 'https://smk.yatindosystem.net',
+    smp: 'https://smp.yatindosystem.net',
     cbt: 'https://cbt.yatindosystem.net',
     guru: 'https://guru.yatindosystem.net',
     inventaris: 'https://sarpras.yatindosystem.net'
@@ -48,7 +48,12 @@ async function fetchManagerTelemetry() {
         if (json.status === 'success') {
           if (json.institution) portalData.institution = json.institution;
           if (json.stats) Object.assign(portalData.stats, json.stats);
-          if (json.urls) Object.assign(portalData.urls, json.urls);
+          if (json.urls) {
+            Object.assign(portalData.urls, json.urls);
+            // Normalisasi URL agar langsung membuka subdomain tanpa /login
+            if (portalData.urls.smk) portalData.urls.smk = portalData.urls.smk.replace(/\/login\/?$/, '');
+            if (portalData.urls.smp) portalData.urls.smp = portalData.urls.smp.replace(/\/login\/?$/, '');
+          }
           applyDataToUi();
           return;
         }
@@ -151,8 +156,8 @@ function applyDataToUi() {
   });
 }
 
-// Open link specifically in a fresh browser tab (Bypasses Chrome PWA link-capturing)
-function openInNewTab(url, event) {
+// Buka link modul di tab yang sama (tidak new tab)
+function navigateToModule(url, event) {
   if (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -164,19 +169,13 @@ function openInNewTab(url, event) {
     return false;
   }
 
-  try {
-    const newTab = window.open('about:blank', '_blank');
-    if (newTab) {
-      newTab.opener = null;
-      newTab.location.href = cleanUrl;
-    } else {
-      window.open(cleanUrl, '_blank', 'noopener,noreferrer');
-    }
-  } catch (err) {
-    window.open(cleanUrl, '_blank', 'noopener,noreferrer');
-  }
-
+  window.location.href = cleanUrl;
   return false;
+}
+
+// Alias untuk kompatibilitas jika masih dipanggil di tempat lain
+function openInNewTab(url, event) {
+  return navigateToModule(url, event);
 }
 
 // Toast notification
