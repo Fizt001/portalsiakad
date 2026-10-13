@@ -1450,33 +1450,66 @@ body {
     padding: 0 14px;
   }
 
-  /* Header & Navbar Ringkas */
+  /* Header & Navbar Ringkas - Font Diperkecil 50% Sesuai Permintaan */
   .main-header {
-    padding: 10px 0;
+    padding: 4px 0;
+  }
+  .navbar {
+    height: 48px;
+    min-height: 48px;
+  }
+  .brand-group {
+    gap: 8px;
   }
   .brand-logo-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
   }
   .brand-logo-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
   }
   .brand-text h1 {
-    font-size: 1.1rem;
-    line-height: 1.2;
+    font-size: 0.62rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
   .brand-text span {
-    font-size: 0.66rem;
+    font-size: 0.44rem;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .pwa-install-btn,
+  .helpdesk-nav-btn {
+    height: 28px;
+    padding: 4px 8px;
+    font-size: 0.58rem;
+    border-radius: 8px;
+    gap: 4px;
+  }
+  .pwa-install-btn svg,
+  .helpdesk-nav-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+  .nav-btn-text {
+    font-size: 0.56rem;
   }
   .theme-toggle-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  .theme-toggle-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
-  /* Hero Section Ringkas */
+  /* Hero Section Ringkas - Tulisan Dibuat Center Sesuai Permintaan */
   .hero-section {
     padding: 16px 0 20px;
   }
@@ -1485,36 +1518,54 @@ body {
   }
   .hero-content {
     gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   .hero-pill {
     padding: 4px 12px;
     font-size: 0.78rem;
     gap: 6px;
+    margin: 0 auto;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
   }
   .hero-title {
     font-size: 1.45rem;
     line-height: 1.25;
     letter-spacing: -0.02em;
+    text-align: center;
+    width: 100%;
   }
   .hero-subtitle {
     font-size: 0.84rem;
     line-height: 1.45;
     max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
   }
 
   /* Hero Visual Card Proporsional */
   .hero-visual-card {
     border-radius: var(--radius-md);
     box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.4);
+    margin: 0 auto;
+    width: 100%;
   }
   .hero-banner-img {
     height: 145px;
   }
   .visual-overlay {
     padding: 10px 12px;
+    align-items: center;
+    text-align: center;
   }
   .visual-badge-group {
     gap: 6px;
+    justify-content: center;
+    width: 100%;
   }
   .visual-badge {
     padding: 3px 8px;
@@ -1526,20 +1577,30 @@ body {
     height: 11px;
   }
 
-  /* Section Header Ramping */
+  /* Section Header Ramping - Tulisan Dibuat Center Sesuai Permintaan */
   .gateway-section {
     padding: 18px 0 28px;
   }
   .section-header {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     gap: 6px;
+    text-align: center;
+    justify-content: center;
+  }
+  .section-header .title-group {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
   }
   .section-header .title-group h2 {
     font-size: 1.22rem;
+    text-align: center;
   }
   .section-header .title-group p {
     font-size: 0.78rem;
     line-height: 1.35;
+    text-align: center;
+    margin: 4px auto 0;
   }
 
   /* 2-Kolom Grid: Kotak-kotak Mengecil Tidak Menumpuk Vertikal Memanjang */
@@ -1602,6 +1663,8 @@ body {
 
   .card-body {
     gap: 4px;
+    text-align: center;
+    align-items: center;
   }
   .card-title {
     font-size: 0.92rem;
@@ -1609,6 +1672,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
   .card-desc {
     font-size: 0.72rem;
@@ -1618,6 +1682,7 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-align: center;
   }
   .feature-list-chips {
     display: none; /* Sembunyikan chips panjang di mobile agar tinggi kartu rapi & compact */
@@ -1641,7 +1706,7 @@ body {
     height: 12px;
   }
 
-  /* Stats Section: 2x2 Grid Ramping */
+  /* Stats Section: 2x2 Grid Ramping & Center */
   .stats-section {
     padding: 14px 0 28px;
   }
@@ -1652,14 +1717,25 @@ body {
     border-radius: var(--radius-md);
   }
   .stat-item {
-    gap: 8px;
-    padding: 4px 0;
+    gap: 6px;
+    padding: 6px 4px;
     border: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .stat-item > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   .stat-icon {
     width: 32px;
     height: 32px;
     border-radius: 8px;
+    margin: 0 auto;
   }
   .stat-icon svg {
     width: 16px;
@@ -1668,48 +1744,65 @@ body {
   .stat-number {
     font-size: 1.05rem;
     line-height: 1.2;
+    text-align: center;
   }
   .stat-label {
     font-size: 0.68rem;
     line-height: 1.2;
+    text-align: center;
   }
 
-  /* Footer Sangat Ramping & Rapat di Layanan Mobile */
+  /* Footer Sangat Ramping, Rapat & Center */
   .main-footer {
     padding: 18px 0 14px;
   }
   .footer-top {
-    display: grid;
-    grid-template-columns: 1.3fr 0.9fr;
-    gap: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
     margin-bottom: 14px;
   }
   .footer-brand {
-    grid-column: 1 / -1;
+    text-align: center;
+    width: 100%;
   }
   .footer-brand h4 {
     font-size: 0.88rem;
     margin-bottom: 4px;
     line-height: 1.25;
+    text-align: center;
   }
   .footer-brand p {
     font-size: 0.73rem;
     line-height: 1.38;
     color: var(--text-secondary);
+    text-align: center;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+  .footer-links {
+    text-align: center;
+    width: 100%;
   }
   .footer-links h5 {
     font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 6px;
     letter-spacing: 0.04em;
+    text-align: center;
   }
   .footer-links ul {
     gap: 5px;
+    align-items: center;
+    justify-content: center;
   }
   .footer-links ul li a {
     font-size: 0.73rem;
     line-height: 1.28;
     display: inline-block;
+    text-align: center;
   }
   .footer-bottom {
     padding-top: 10px;
@@ -2091,7 +2184,7 @@ body {
     display: none;
   }
   .btn-helpdesk-float {
-    padding: 12px;
+    padding: 10px;
     border-radius: 50%;
   }
   .pwa-install-btn .nav-btn-text,
@@ -2100,6 +2193,17 @@ body {
   }
   .pwa-install-btn,
   .helpdesk-nav-btn {
-    padding: 7px 10px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  .pwa-install-btn svg,
+  .helpdesk-nav-btn svg {
+    width: 13px;
+    height: 13px;
   }
 }
