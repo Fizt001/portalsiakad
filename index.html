@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Layanan SIAKAD Terpadu | Satu Pintu Akses Ekosistem Sekolah</title>
+  <meta name="description" content="Dashboard portal satu pintu untuk akses SIAKAD SMK, SIAKAD SMP, Ujian CBT, Administrasi Guru, dan Inventaris Sarana Prasarana Sekolah.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 13.54L4.82 12 3 12.83l9 4.17 9-4.17L19.18 12 12 15.54zm0 4.18L4.82 16.18 3 17.01l9 4.17 9-4.17L19.18 16.18 12 19.72z'/></svg>">
+</head>
+<body>
+
+  <!-- Background Ambient Glow -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+  </div>
+
+  <!-- Top Notification / Running Status Bar -->
+  <aside class="top-notice-bar" aria-label="Status Sistem">
+    <div class="container">
+      <div class="notice-content">
+        <div class="notice-left">
+          <span class="status-dot-pulse" aria-hidden="true"></span>
+          <span><strong>Status Sistem:</strong> Seluruh Server Aktif &amp; Terhubung (99.98% Uptime)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="academic-badge">T.A 2026/2027 Ganjil</span>
+          <div class="clock-badge" id="liveClock" title="Waktu Indonesia Barat (WIB)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span id="clockDisplay">Memuat waktu...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Modern Header / Navigation Bar -->
+  <header class="main-header" id="mainHeader">
+    <div class="container">
+      <nav class="navbar" aria-label="Navigasi Utama">
+        <a href="#hero" class="brand-group" id="brandLink">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1>PORTAL SIAKAD</h1>
+            <span id="headerSubtitle">Gateway Ekosistem Terpadu</span>
+          </div>
+        </a>
+
+        <div class="nav-actions">
+          <!-- Dark/Light Theme Toggle -->
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ganti Tema Gelap / Terang" title="Ganti Tema">
+            <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div class="hero-pill">
+              <span class="status-dot-pulse" style="width:7px; height:7px;"></span>
+              <span id="heroPillText">Yayasan Tinta Emas Indonesia</span>
+            </div>
+
+            <h1 class="hero-title">
+              Satu Pintu Akses <br>
+              <span class="gradient-text" id="heroMainTitle">Ekosistem SIAKAD Terpadu</span>
+            </h1>
+
+            <p class="hero-subtitle" id="heroSubtitleText">
+              Pusat layanan digital integrasi Yayasan Tinta Emas Indonesia untuk akses cepat civitas akademika menuju sistem pembelajaran, ujian daring, dan tata kelola sekolah.
+            </p>
+          </div>
+
+          <!-- Hero Visual Presentation Card -->
+          <div class="hero-visual-card">
+            <img src="assets/img/hero-banner.jpg" alt="Ekosistem Digital Sekolah Terpadu" class="hero-banner-img" loading="eager">
+            <div class="visual-overlay">
+              <div class="visual-badge-group">
+                <span class="visual-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Multi-Jenjang (SMK &amp; SMP)
+                </span>
+                <span class="visual-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                  Realtime CBT Sync
+                </span>
+                <span class="visual-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  Single Sign-On Ready
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CORE GATEWAY SHOWCASE: 6 KARTU LENGKAP & BERSIH
+         ===================================================================== -->
+    <section class="gateway-section" id="portal-layanan">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="title-group">
+            <h2>Pusat Layanan Aplikasi</h2>
+            <p>Pilih sistem aplikasi yang ingin Anda tuju. Klik tombol untuk langsung menuju ke halaman login masing-masing modul.</p>
+          </div>
+        </div>
+
+        <div class="gateway-cards-grid" id="cardsGrid">
+          
+          <!-- 1. SIAKAD SMK -->
+          <article class="portal-card card-smk" id="portal-smk">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  <line x1="9" y1="7" x2="15" y2="7"></line>
+                  <line x1="9" y1="11" x2="13" y2="11"></line>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge">Jenjang SMK</span>
+                <span class="status-indicator status-unconfigured" id="status-smk"><span class="dot-gray"></span> Belum Dikonfigurasi</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">SIAKAD SMK</h3>
+              <p class="card-desc">
+                Platform akademik terpadu jenjang SMK berstandar Kurikulum Merdeka (Fase E &amp; F). Mengelola struktur 3-Tier Kejuruan, penjadwalan cerdas Rombel Merger, asesmen TP formatif &amp; sumatif, kemitraan DUDI &amp; monitoring PKL (Hubin), hingga e-Rapor vokasi dan leger nilai.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">3-Tier Kejuruan</span>
+                <span class="chip">Rombel Merger</span>
+                <span class="chip">Kemitraan DUDI &amp; PKL</span>
+                <span class="chip">e-Rapor Vokasi</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="#" class="btn-launch" id="btnLaunch-smk" target="_blank" rel="noopener noreferrer" onclick="openInNewTab(this.href, event);">
+                <span>Masuk SIAKAD SMK</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 2. SIAKAD SMP -->
+          <article class="portal-card card-smp" id="portal-smp">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge">Jenjang SMP</span>
+                <span class="status-indicator status-unconfigured" id="status-smp"><span class="dot-gray"></span> Belum Dikonfigurasi</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">SIAKAD SMP</h3>
+              <p class="card-desc">
+                Platform akademik terpadu jenjang SMP berstandar Kurikulum Merdeka (Fase D). Mengelola administrasi rombel kelas VII–IX, jurnal KBM harian guru, asesmen formatif &amp; sumatif berbasis TP, kokurikuler P5, layanan bimbingan konseling, hingga penerbitan e-Rapor resmi dan leger nilai.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">Fase D Kurikulum Merdeka</span>
+                <span class="chip">Asesmen Berbasis TP</span>
+                <span class="chip">Jurnal KBM &amp; P5</span>
+                <span class="chip">e-Rapor SMP &amp; Leger</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="#" class="btn-launch" id="btnLaunch-smp" target="_blank" rel="noopener noreferrer" onclick="openInNewTab(this.href, event);">
+                <span>Masuk SIAKAD SMP</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 3. CBT (UJIAN ONLINE) -->
+          <article class="portal-card card-cbt" id="portal-cbt">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                  <polyline points="9 10 11 12 15 8"></polyline>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge">Ujian Daring</span>
+                <span class="status-indicator status-unconfigured" id="status-cbt"><span class="dot-gray"></span> Belum Dikonfigurasi</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">CBT - Ujian Online</h3>
+              <p class="card-desc">
+                Computer Based Test portal untuk pelaksanaan asesmen harian, Penilaian Tengah Semester (PTS), Asesmen Akhir Semester (AAS), dan Tryout. Terlindungi sistem anti-curang dan penilaian langsung.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">Bank Soal Multi-Tipe</span>
+                <span class="chip">Live Proctoring</span>
+                <span class="chip">Koreksi Otomatis</span>
+                <span class="chip">Token Ujian</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="#" class="btn-launch" id="btnLaunch-cbt" target="_blank" rel="noopener noreferrer" onclick="openInNewTab(this.href, event);">
+                <span>Masuk Portal CBT</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 4. ADMINISTRASI GURU -->
+          <article class="portal-card card-guru" id="portal-guru">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge">Dewan Guru</span>
+                <span class="status-indicator status-unconfigured" id="status-guru"><span class="dot-gray"></span> Belum Dikonfigurasi</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">Administrasi Guru</h3>
+              <p class="card-desc">
+                Ruang kerja terpadu bagi bapak/ibu guru untuk mengelola perangkat kurikulum: modul ajar, ATP, jurnal harian mengajar kelas, presensi mengajar, serta pengunggahan portofolio kinerja guru.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">Modul Ajar / RPP</span>
+                <span class="chip">Jurnal Mengajar Harian</span>
+                <span class="chip">Agenda Pelajaran</span>
+                <span class="chip">Penilaian Kinerja</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="#" class="btn-launch" id="btnLaunch-guru" target="_blank" rel="noopener noreferrer" onclick="openInNewTab(this.href, event);">
+                <span>Akses Ruang Guru</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 5. INVENTARIS (PALING TERAKHIR DARI SISTEM AKTIF) -->
+          <article class="portal-card card-inventaris" id="portal-inventaris">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge">Sarpras &amp; Aset</span>
+                <span class="status-indicator status-unconfigured" id="status-inventaris"><span class="dot-gray"></span> Belum Dikonfigurasi</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">Inventaris &amp; Sarpras</h3>
+              <p class="card-desc">
+                Sistem pengelolaan logistik dan sarana prasarana sekolah. Mencakup pendataan inventaris ruangan, barcode tracking peralatan lab dan bengkel kerja, peminjaman alat, serta riwayat pemeliharaan berkala.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">Katalog Aset &amp; QR Code</span>
+                <span class="chip">Peminjaman Sarana</span>
+                <span class="chip">Kondisi Alat &amp; Lab</span>
+                <span class="chip">Laporan Perbaikan</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a href="#" class="btn-launch" id="btnLaunch-inventaris" target="_blank" rel="noopener noreferrer" onclick="openInNewTab(this.href, event);">
+                <span>Kelola Inventaris</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 6. COMING SOON (PENYEIMBANG GRID) -->
+          <article class="portal-card card-coming-soon" id="portal-comingsoon">
+            <div class="card-header-row">
+              <div class="icon-wrapper">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                </svg>
+              </div>
+              <div class="badge-row">
+                <span class="tag-badge" style="color: #06b6d4;">Segera Hadir</span>
+                <span class="status-indicator status-soon"><span class="dot-amber"></span> Coming Soon</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">Modul Mendatang</h3>
+              <p class="card-desc">
+                Sistem pendukung baru (seperti E-Library Digital / LMS Terintegrasi) sedang dalam tahap riset dan pengembangan integrasi untuk melengkapi ekosistem sekolah digital Anda.
+              </p>
+              <div class="feature-list-chips">
+                <span class="chip">E-Library Digital</span>
+                <span class="chip">LMS Terpadu</span>
+                <span class="chip">Rilis Bertahap</span>
+                <span class="chip">Tahap Riset</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="button" class="btn-launch btn-launch-soon" onclick="showToast('Modul ini sedang dalam tahap pengembangan dan akan segera dirilis!')" title="Klik untuk informasi">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Coming Soon</span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         STATISTIK & KONDISI SISTEM
+         ===================================================================== -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-card-container">
+          
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statStudents">1.037+</div>
+              <div class="stat-label">Siswa Aktif Terdata</div>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statStaff">75</div>
+              <div class="stat-label">Guru &amp; Tenaga Kependidikan</div>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statRombels">33 Rombel</div>
+              <div class="stat-label">Total Kelas SMK &amp; SMP</div>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div>
+              <div class="stat-number" id="statUptime">99.98%</div>
+              <div class="stat-label">Kesiapan Server Uptime</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top">
+        
+        <div class="footer-brand">
+          <h4 id="footerBrandTitle">PORTAL SIAKAD YAYASAN TINTA EMAS INDONESIA</h4>
+          <p>
+            Platform pintu gerbang terintegrasi untuk mendukung transformasi digital institusi pendidikan: menghubungkan sistem akademik SMK, SMP, ujian daring, administrasi pendidik, dan pengelolaan aset sarpras.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h5>Layanan Utama</h5>
+          <ul>
+            <li><a href="#portal-smk">SIAKAD SMK</a></li>
+            <li><a href="#portal-smp">SIAKAD SMP</a></li>
+            <li><a href="#portal-cbt">CBT Ujian Online</a></li>
+            <li><a href="#portal-guru">Administrasi Guru</a></li>
+            <li><a href="#portal-inventaris">Inventaris &amp; Sarpras</a></li>
+            <li><a href="#portal-comingsoon">Modul Mendatang</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Tautan Cepat</h5>
+          <ul>
+            <li><a href="#portal-layanan">Pusat Layanan</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Kembali ke Atas</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 <strong id="footerInstitutionName">Portal SIAKAD Yayasan Tinta Emas Indonesia</strong>. Hak Cipta Dilindungi Undang-Undang.
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <span>Versi 3.5.0 Production</span>
+          <span>&bull;</span>
+          <span>Secure Gateway SSL 256-Bit</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg" role="alert">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastText">Pengaturan URL berhasil disimpan!</span>
+  </div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
