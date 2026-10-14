@@ -2004,10 +2004,10 @@ body {
 .helpdesk-modal-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 24px;
+  border-radius: 18px;
   width: 100%;
-  max-width: 480px;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  max-width: 380px;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   transform: translateY(20px) scale(0.97);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2021,7 +2021,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);
   background: rgba(255, 255, 255, 0.02);
 }
@@ -2029,49 +2029,67 @@ body {
 .hd-header-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .hd-header-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   background: rgba(99, 102, 241, 0.15);
   color: #818cf8;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+}
+
+.hd-header-icon svg {
+  width: 17px;
+  height: 17px;
 }
 
 .hd-modal-header h3 {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 2px;
+  margin-bottom: 1px;
+  line-height: 1.2;
 }
 
 .hd-status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.75rem;
+  gap: 5px;
+  font-size: 0.66rem;
   color: #10b981;
   font-weight: 600;
+}
+
+.hd-status-pill .dot-green {
+  width: 5px;
+  height: 5px;
 }
 
 .hd-modal-close {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  flex-shrink: 0;
   transition: all var(--transition-fast);
+}
+
+.hd-modal-close svg {
+  width: 15px;
+  height: 15px;
 }
 
 .hd-modal-close:hover {
@@ -2081,20 +2099,20 @@ body {
 }
 
 .hd-modal-body {
-  padding: 24px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .hd-info-panel {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
+  border-radius: 10px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
 
 [data-theme="light"] .hd-info-panel {
@@ -2105,45 +2123,65 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.85rem;
+  gap: 8px;
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
 
 .hd-label {
   color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.72rem;
 }
 
 .hd-val {
   color: var(--text-main);
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  text-align: right;
 }
 
 .hd-notes-text {
-  font-size: 0.88rem;
+  font-size: 0.73rem;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.4;
   margin: 0;
 }
 
 .hd-action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .btn-hd-wa {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 13px 20px;
-  border-radius: var(--radius-md);
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 10px;
   background: #16a34a;
   color: #ffffff;
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.78rem;
   text-decoration: none;
+  white-space: nowrap;
   box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
   transition: all var(--transition-fast);
+}
+
+.btn-hd-wa svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-hd-wa .hd-btn-text {
+  white-space: nowrap;
 }
 
 .btn-hd-wa:hover {
@@ -2156,16 +2194,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 11px 18px;
-  border-radius: var(--radius-md);
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  font-size: 0.88rem;
+  font-size: 0.74rem;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   transition: all var(--transition-fast);
+}
+
+.btn-hd-email svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btn-hd-email .hd-btn-text {
+  white-space: nowrap;
 }
 
 .btn-hd-email:hover {
@@ -2243,159 +2292,179 @@ body {
 
   /* Helpdesk Modal Mobile Typography & Layout */
   .helpdesk-modal-backdrop {
-    padding: 14px;
+    padding: 10px;
   }
   .helpdesk-modal-card {
-    max-width: 380px;
-    border-radius: 18px;
+    max-width: 340px;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
   }
   .hd-modal-header {
-    padding: 12px 14px;
+    padding: 9px 12px;
   }
   .hd-header-left {
-    gap: 10px;
+    gap: 8px;
   }
   .hd-header-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-  .hd-header-icon svg {
-    width: 17px;
-    height: 17px;
-  }
-  .hd-modal-header h3 {
-    font-size: 0.92rem;
-    line-height: 1.25;
-    margin-bottom: 2px;
-  }
-  .hd-status-pill {
-    font-size: 0.67rem;
-    gap: 4px;
-  }
-  .hd-status-pill .dot-green {
-    width: 5px;
-    height: 5px;
-  }
-  .hd-modal-close {
     width: 28px;
     height: 28px;
     border-radius: 8px;
     flex-shrink: 0;
   }
-  .hd-modal-close svg {
+  .hd-header-icon svg {
     width: 14px;
     height: 14px;
   }
+  .hd-modal-header h3 {
+    font-size: 0.82rem;
+    line-height: 1.2;
+    margin-bottom: 1px;
+  }
+  .hd-status-pill {
+    font-size: 0.58rem;
+    gap: 3px;
+  }
+  .hd-status-pill .dot-green {
+    width: 4px;
+    height: 4px;
+  }
+  .hd-modal-close {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .hd-modal-close svg {
+    width: 13px;
+    height: 13px;
+  }
   .hd-modal-body {
-    padding: 14px;
-    gap: 12px;
+    padding: 9px 12px;
+    gap: 7px;
   }
   .hd-info-panel {
-    padding: 10px 12px;
-    gap: 7px;
-    border-radius: 12px;
+    padding: 6px 10px;
+    gap: 4px;
+    border-radius: 8px;
   }
   .hd-pic-row {
-    font-size: 0.74rem;
-    align-items: flex-start;
-    gap: 10px;
+    font-size: 0.67rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    white-space: nowrap;
   }
   .hd-label {
-    font-size: 0.72rem;
+    font-size: 0.67rem;
     white-space: nowrap;
     flex-shrink: 0;
   }
   .hd-val {
-    font-size: 0.74rem;
+    font-size: 0.67rem;
+    white-space: nowrap;
+    flex-shrink: 0;
     text-align: right;
   }
   .hd-notes-text {
-    font-size: 0.76rem;
-    line-height: 1.45;
+    font-size: 0.67rem;
+    line-height: 1.32;
   }
   .hd-action-buttons {
-    gap: 8px;
+    gap: 5px;
   }
   .btn-hd-wa {
-    padding: 10px 14px;
-    font-size: 0.80rem;
+    padding: 7px 12px;
+    font-size: 0.72rem;
     font-weight: 600;
-    border-radius: 10px;
-    gap: 8px;
+    border-radius: 8px;
+    gap: 6px;
+    white-space: nowrap;
   }
   .btn-hd-wa svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-  .btn-hd-email {
-    padding: 8px 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 10px;
-    gap: 6px;
-  }
-  .btn-hd-email svg {
     width: 14px;
     height: 14px;
     flex-shrink: 0;
   }
+  .btn-hd-wa .hd-btn-text {
+    white-space: nowrap;
+  }
+  .btn-hd-email {
+    padding: 6px 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    border-radius: 8px;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .btn-hd-email svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  .btn-hd-email .hd-btn-text {
+    white-space: nowrap;
+  }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
   .helpdesk-modal-backdrop {
-    padding: 10px;
+    padding: 8px;
   }
   .helpdesk-modal-card {
-    border-radius: 16px;
+    max-width: 300px;
+    border-radius: 12px;
   }
   .hd-modal-header {
-    padding: 10px 12px;
+    padding: 7px 10px;
   }
   .hd-modal-header h3 {
-    font-size: 0.84rem;
+    font-size: 0.76rem;
   }
   .hd-header-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
   }
   .hd-header-icon svg {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
   }
   .hd-status-pill {
-    font-size: 0.62rem;
+    font-size: 0.54rem;
   }
   .hd-modal-close {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
   }
   .hd-modal-body {
-    padding: 12px;
-    gap: 10px;
+    padding: 7px 10px;
+    gap: 6px;
   }
   .hd-info-panel {
-    padding: 8px 10px;
-    gap: 5px;
+    padding: 5px 8px;
+    gap: 3px;
   }
   .hd-pic-row {
-    font-size: 0.68rem;
+    font-size: 0.60rem;
+    gap: 4px;
   }
   .hd-label {
-    font-size: 0.66rem;
+    font-size: 0.60rem;
   }
   .hd-val {
-    font-size: 0.68rem;
+    font-size: 0.60rem;
   }
   .hd-notes-text {
-    font-size: 0.70rem;
-    line-height: 1.4;
+    font-size: 0.62rem;
+    line-height: 1.28;
   }
   .btn-hd-wa {
-    padding: 8px 12px;
-    font-size: 0.74rem;
+    padding: 6px 8px;
+    font-size: 0.66rem;
+    gap: 4px;
+  }
+  .btn-hd-wa svg {
+    width: 12px;
+    height: 12px;
   }
 }
