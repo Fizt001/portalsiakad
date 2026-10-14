@@ -31,9 +31,9 @@
   --color-rose: #f43f5e;
   --color-indigo: #6366f1;
 
-  /* Card specific accents */
-  --accent-smk: #3b82f6;
-  --accent-smp: #10b981;
+  /* Card specific accents (SMK: Semi Abu-abu / Slate Grey, SMP: Biru) */
+  --accent-smk: #64748b;
+  --accent-smp: #3b82f6;
   --accent-cbt: #f59e0b;
   --accent-guru: #8b5cf6;
   --accent-inventaris: #f43f5e;
@@ -76,6 +76,10 @@
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
   --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.12);
+
+  /* Card specific accents for light mode (SMK: Slate Grey, SMP: Biru) */
+  --accent-smk: #475569;
+  --accent-smp: #2563eb;
 }
 
 /* Base Reset */
@@ -622,11 +626,18 @@ body {
 /* Individual card accents */
 .card-smk {
   --card-accent: var(--accent-smk);
-  --card-glow: rgba(59, 130, 246, 0.2);
+  --card-glow: rgba(100, 116, 139, 0.25);
 }
+[data-theme="light"] .card-smk {
+  --card-glow: rgba(71, 85, 105, 0.22);
+}
+
 .card-smp {
   --card-accent: var(--accent-smp);
-  --card-glow: rgba(16, 185, 129, 0.2);
+  --card-glow: rgba(59, 130, 246, 0.25);
+}
+[data-theme="light"] .card-smp {
+  --card-glow: rgba(37, 99, 235, 0.22);
 }
 .card-cbt {
   --card-accent: var(--accent-cbt);
