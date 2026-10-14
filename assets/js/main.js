@@ -23,9 +23,14 @@ const DEFAULT_GATEWAY_DATA = {
   urls: {
     smk: 'https://smk.yatindosystem.net',
     smp: 'https://smp.yatindosystem.net',
-    cbt: null,
+    cbt: 'https://cbtsmk.yatindosystem.net',
     guru: null,
     inventaris: null
+  },
+  cbt_status: {
+    status: 'active',
+    name: 'CBT YATINDO',
+    url: 'https://cbtsmk.yatindosystem.net'
   },
   helpdesk: {
     is_active: true,
@@ -56,6 +61,7 @@ async function fetchManagerTelemetry() {
         if (json.status === 'success') {
           if (json.institution) portalData.institution = json.institution;
           if (json.stats) Object.assign(portalData.stats, json.stats);
+          if (json.cbt_status) portalData.cbt_status = json.cbt_status;
           if (json.urls) {
             Object.assign(portalData.urls, json.urls);
             // Normalisasi URL agar langsung membuka subdomain tanpa /login
@@ -175,6 +181,31 @@ function applyDataToUi() {
         statusEl.className = 'status-indicator status-unconfigured';
         statusEl.innerHTML = `<span class="dot-gray"></span> Nonaktif`;
         statusEl.title = 'Modul belum diaktifkan di Manager SIAKAD';
+      }
+    }
+
+    // Specific live status override for CBT
+    if (key === 'cbt' && portalData.cbt_status) {
+      const cbtSt = portalData.cbt_status.status;
+      if (cbtSt === 'maintenance') {
+        if (statusEl) {
+          statusEl.className = 'status-indicator status-maintenance';
+          statusEl.innerHTML = `<span class="dot-amber"></span> Maintenance`;
+          statusEl.title = 'Sistem CBT sedang dalam masa pemeliharaan';
+        }
+        if (btnLaunch) {
+          btnLaunch.innerHTML = `<span>Mode Maintenance</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+        }
+      } else if (cbtSt === 'offline' || cbtSt === 'suspended') {
+        if (statusEl) {
+          statusEl.className = 'status-indicator status-unconfigured';
+          statusEl.innerHTML = `<span class="dot-gray"></span> Ditutup`;
+          statusEl.title = 'Sistem CBT sedang ditutup di luar jadwal ujian';
+        }
+        if (btnLaunch) {
+          btnLaunch.classList.add('btn-launch-off');
+          btnLaunch.innerHTML = `<span>CBT Ditutup</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
+        }
       }
     }
   });
