@@ -37,6 +37,11 @@ const DEFAULT_GATEWAY_DATA = {
     name: 'Administrasi Guru',
     url: 'https://admsmk.yatindosystem.net'
   },
+  inventaris_status: {
+    status: 'maintenance',
+    name: 'Inventaris & Sarpras',
+    url: '#'
+  },
   helpdesk: {
     is_active: true,
     name: 'Helpdesk IT Yayasan',
@@ -68,6 +73,7 @@ async function fetchManagerTelemetry() {
           if (json.stats) Object.assign(portalData.stats, json.stats);
           if (json.cbt_status) portalData.cbt_status = json.cbt_status;
           if (json.guru_status) portalData.guru_status = json.guru_status;
+          if (json.inventaris_status) portalData.inventaris_status = json.inventaris_status;
           if (json.urls) {
             Object.assign(portalData.urls, json.urls);
             // Normalisasi URL agar langsung membuka subdomain tanpa /login
@@ -240,6 +246,37 @@ function applyDataToUi() {
         }
       }
     }
+
+    // Specific live status override for Inventaris & Sarpras
+    if (key === 'inventaris') {
+      const invSt = portalData.inventaris_status ? portalData.inventaris_status.status : 'maintenance';
+      if (invSt === 'maintenance') {
+        if (statusEl) {
+          statusEl.className = 'status-indicator status-maintenance status-maintenance-inventaris';
+          statusEl.innerHTML = `<span class="dot-amber-red"></span> Maintenance`;
+          statusEl.title = 'Modul Inventaris & Sarpras sedang dalam tahap persiapan & pemeliharaan sistem';
+        }
+        if (btnLaunch) {
+          btnLaunch.classList.remove('btn-launch-off');
+          btnLaunch.classList.add('btn-launch-maintenance-inventaris');
+          btnLaunch.href = 'javascript:void(0)';
+          btnLaunch.title = 'Modul Inventaris & Sarpras sedang dalam tahap persiapan & pemeliharaan';
+          btnLaunch.innerHTML = `<span>Mode Maintenance</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+        }
+      } else if (invSt === 'offline' || invSt === 'suspended') {
+        if (statusEl) {
+          statusEl.className = 'status-indicator status-unconfigured';
+          statusEl.innerHTML = `<span class="dot-gray"></span> Nonaktif`;
+          statusEl.title = 'Modul Inventaris & Sarpras belum diaktifkan';
+        }
+        if (btnLaunch) {
+          btnLaunch.classList.remove('btn-launch-maintenance-inventaris');
+          btnLaunch.classList.add('btn-launch-off');
+          btnLaunch.href = '#';
+          btnLaunch.innerHTML = `<span>Modul Nonaktif</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
+        }
+      }
+    }
   });
 
   // 6. Helpdesk Contact Mirroring
@@ -355,6 +392,10 @@ function navigateToModule(url, event) {
 
   const cleanUrl = (url || '').trim();
   if (!cleanUrl || cleanUrl === '#' || cleanUrl.startsWith('javascript:')) {
+    if (event && event.currentTarget && event.currentTarget.classList.contains('btn-launch-maintenance-inventaris')) {
+      showToast('Modul Inventaris & Sarpras sedang dalam tahap persiapan & pemeliharaan sistem.');
+      return false;
+    }
     showToast('Modul ini belum diaktifkan di Manager SIAKAD.');
     return false;
   }
