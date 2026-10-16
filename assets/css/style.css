@@ -672,8 +672,9 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f59e0b;
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+  background: linear-gradient(135deg, #fde047, #f59e0b);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.85), 0 0 4px #fbbf24;
+  animation: pulsePing 1.5s infinite;
 }
 .btn-launch-soon {
   background: rgba(255, 255, 255, 0.06);
@@ -905,13 +906,15 @@ body {
 .status-indicator.status-online {
   color: #10b981;
   background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.12);
 }
 
 .status-indicator.status-offline {
   color: #f43f5e;
   background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.25);
+  border: 1px solid rgba(244, 63, 94, 0.28);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.12);
 }
 
 .status-indicator.status-unconfigured {
@@ -926,20 +929,23 @@ body {
   border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
+/* Pilot Lamps Status (Lampu Indikator Berkedip / Pulse Glow Effect) */
 .dot-green {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-emerald);
-  box-shadow: 0 0 6px var(--color-emerald);
+  background: linear-gradient(135deg, #34d399, #10b981);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.85), 0 0 3px #34d399;
+  animation: pulsePing 1.5s infinite;
 }
 
 .dot-red {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-rose);
-  box-shadow: 0 0 6px var(--color-rose);
+  background: linear-gradient(135deg, #fb7185, #ef4444);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.85), 0 0 3px #fb7185;
+  animation: pulsePing 1.5s infinite;
 }
 
 .dot-gray {
@@ -947,13 +953,15 @@ body {
   height: 7px;
   border-radius: 50%;
   background: #64748b;
+  box-shadow: 0 0 4px rgba(100, 116, 139, 0.4);
 }
 
 .dot-yellow {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f59e0b;
+  background: linear-gradient(135deg, #fde047, #eab308);
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.85), 0 0 3px #fde047;
   animation: pulsePing 1.5s infinite;
 }
 
