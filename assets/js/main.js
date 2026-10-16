@@ -28,7 +28,7 @@ const DEFAULT_GATEWAY_DATA = {
     inventaris: null
   },
   cbt_status: {
-    status: 'active',
+    status: 'maintenance',
     name: 'CBT YATINDO',
     url: 'https://cbtsmk.yatindosystem.net'
   },
@@ -174,6 +174,8 @@ function applyDataToUi() {
       if (isOnline) {
         btnLaunch.href = targetUrl;
         btnLaunch.classList.remove('btn-launch-off');
+        btnLaunch.classList.remove('btn-launch-maintenance-cbt');
+        btnLaunch.classList.remove('btn-launch-maintenance-inventaris');
         btnLaunch.title = 'Buka ' + targetUrl;
         btnLaunch.innerHTML = `<span>${moduleConfig[key].defaultLabel}</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
       } else {
@@ -203,9 +205,13 @@ function applyDataToUi() {
         if (statusEl) {
           statusEl.className = 'status-indicator status-maintenance';
           statusEl.innerHTML = `<span class="dot-amber"></span> Maintenance`;
-          statusEl.title = 'Sistem CBT sedang dalam masa pemeliharaan';
+          statusEl.title = 'Sistem CBT sedang dalam masa pemeliharaan & persiapan ujian';
         }
         if (btnLaunch) {
+          btnLaunch.classList.remove('btn-launch-off');
+          btnLaunch.classList.add('btn-launch-maintenance-cbt');
+          btnLaunch.href = 'javascript:void(0)';
+          btnLaunch.title = 'Sistem CBT sedang dalam masa pemeliharaan & persiapan ujian';
           btnLaunch.innerHTML = `<span>Mode Maintenance</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
         }
       } else if (cbtSt === 'offline' || cbtSt === 'suspended') {
@@ -215,7 +221,9 @@ function applyDataToUi() {
           statusEl.title = 'Sistem CBT sedang ditutup di luar jadwal ujian';
         }
         if (btnLaunch) {
+          btnLaunch.classList.remove('btn-launch-maintenance-cbt');
           btnLaunch.classList.add('btn-launch-off');
+          btnLaunch.href = '#';
           btnLaunch.innerHTML = `<span>CBT Ditutup</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
         }
       }
@@ -392,9 +400,15 @@ function navigateToModule(url, event) {
 
   const cleanUrl = (url || '').trim();
   if (!cleanUrl || cleanUrl === '#' || cleanUrl.startsWith('javascript:')) {
-    if (event && event.currentTarget && event.currentTarget.classList.contains('btn-launch-maintenance-inventaris')) {
-      showToast('Modul Inventaris & Sarpras sedang dalam tahap persiapan & pemeliharaan sistem.');
-      return false;
+    if (event && event.currentTarget) {
+      if (event.currentTarget.classList.contains('btn-launch-maintenance-cbt') || event.currentTarget.id === 'btnLaunch-cbt') {
+        showToast('Sistem CBT Ujian Online sedang dalam masa pemeliharaan & persiapan bank soal.');
+        return false;
+      }
+      if (event.currentTarget.classList.contains('btn-launch-maintenance-inventaris') || event.currentTarget.id === 'btnLaunch-inventaris') {
+        showToast('Modul Inventaris & Sarpras sedang dalam tahap persiapan & pemeliharaan sistem.');
+        return false;
+      }
     }
     showToast('Modul ini belum diaktifkan di Manager SIAKAD.');
     return false;
