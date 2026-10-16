@@ -982,9 +982,10 @@ body {
 }
 
 .card-desc {
-  font-size: 0.92rem;
+  font-size: 0.815rem;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
 }
 
 /* Feature tags pill */
