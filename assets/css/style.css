@@ -598,6 +598,7 @@ body {
   transition: all var(--transition-normal);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  cursor: pointer;
 }
 
 .portal-card::before {
@@ -2604,3 +2605,149 @@ body {
     height: 12px;
   }
 }
+
+/* ==========================================================================
+   PORTAL DUST DISSOLVE & CARD LOGIN MORPH TRANSITION
+   ========================================================================== */
+
+/* State when transition is triggered */
+body.portal-transitioning {
+  overflow: hidden !important;
+}
+
+/* All other elements dissolve like dust with blur and fade */
+body.portal-transitioning .site-header,
+body.portal-transitioning .hero-section,
+body.portal-transitioning .section-header,
+body.portal-transitioning .site-footer,
+body.portal-transitioning .running-text-ticker-wrap,
+body.portal-transitioning .pwa-install-banner,
+body.portal-transitioning .helpdesk-fab,
+body.portal-transitioning .portal-card:not(.card-selected-morph) {
+  opacity: 0 !important;
+  filter: blur(14px) !important;
+  transform: scale(0.9) translateY(18px) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+}
+
+/* Screen Backdrop Overlay for the destination theme color */
+.portal-transition-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.portal-transition-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.portal-transition-backdrop.theme-smk {
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 35%, #e2e8f0 70%, #ffffff 100%);
+}
+
+.portal-transition-backdrop.theme-smp {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 35%, #bae6fd 70%, #ffffff 100%);
+}
+
+.portal-transition-backdrop.theme-guru {
+  background: linear-gradient(135deg, #fdf4ff 0%, #f5f3ff 35%, #ede9fe 70%, #ffffff 100%);
+}
+
+/* The Selected Card: morphs gracefully into login form dialog */
+.portal-card.card-selected-morph {
+  position: fixed !important;
+  z-index: 9999 !important;
+  margin: 0 !important;
+  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(226, 232, 240, 0.8) !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  cursor: default !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+/* Card content morphing state */
+.morph-login-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeInMorph 0.35s ease forwards;
+  width: 100%;
+}
+
+@keyframes fadeInMorph {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.morph-brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.morph-brand-badge.badge-smk {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.morph-brand-badge.badge-smp {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+.morph-brand-badge.badge-guru {
+  background: #faf5ff;
+  border: 1px solid #ddd6fe;
+  color: #7c3aed;
+}
+
+.morph-inputs-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 6px 0;
+}
+
+.morph-input-row {
+  height: 42px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  gap: 8px;
+}
+
+.morph-spinner-ring {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spinMorph 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+@keyframes spinMorph {
+  to { transform: rotate(360deg); }
+}
+

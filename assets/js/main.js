@@ -391,12 +391,16 @@ function toggleHelpdeskModal(isOpen) {
   }
 }
 
-// Buka link modul di tab yang sama (tidak new tab)
+let isTransitioning = false;
+
+// Buka link modul dengan transisi debu & morphing form login
 function navigateToModule(url, event) {
   if (event) {
     event.preventDefault();
     event.stopPropagation();
   }
+
+  if (isTransitioning) return false;
 
   const cleanUrl = (url || '').trim();
   if (!cleanUrl || cleanUrl === '#' || cleanUrl.startsWith('javascript:')) {
@@ -414,9 +418,160 @@ function navigateToModule(url, event) {
     return false;
   }
 
+  // Cari kartu portal yang bersangkutan
+  let card = null;
+  if (event && event.currentTarget) {
+    card = event.currentTarget.closest('.portal-card');
+  }
+  if (!card) {
+    if (cleanUrl.includes('smk.yatindosystem.net')) card = document.getElementById('portal-smk');
+    else if (cleanUrl.includes('smp.yatindosystem.net')) card = document.getElementById('portal-smp');
+    else if (cleanUrl.includes('admsmk.yatindosystem.net')) card = document.getElementById('portal-guru');
+  }
+
+  // Jika kartu aktif SIAKAD / Supervisi, aktifkan transisi debu & transformasi login
+  if (card && (cleanUrl.includes('smk.yatindosystem.net') || cleanUrl.includes('smp.yatindosystem.net') || cleanUrl.includes('admsmk.yatindosystem.net'))) {
+    triggerPortalTransition(card, cleanUrl);
+    return false;
+  }
+
   window.location.href = cleanUrl;
   return false;
 }
+
+function triggerPortalTransition(card, targetUrl) {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  // Metadata sistem sesuai modul
+  let theme = 'smk';
+  let title = 'Masuk ke Sistem SIAKAD';
+  let school = 'SMK TINTA EMAS INDONESIA';
+  let sub = 'SISTEM INFORMASI AKADEMIK';
+  let icon = '🎓';
+  let btnText = 'Masuk ke Sistem SIAKAD';
+  let btnBg = 'linear-gradient(135deg, #475569 0%, #334155 100%)';
+  let btnShadow = 'rgba(51, 65, 85, 0.35)';
+  let accentColor = '#475569';
+
+  if (targetUrl.includes('smp.yatindosystem.net')) {
+    theme = 'smp';
+    school = 'SMP TINTA EMAS INDONESIA';
+    icon = '📖';
+    btnBg = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+    btnShadow = 'rgba(37, 99, 235, 0.35)';
+    accentColor = '#2563eb';
+  } else if (targetUrl.includes('admsmk.yatindosystem.net')) {
+    theme = 'guru';
+    title = 'Masuk ke Portal Supervisi';
+    school = 'SMK TINTA EMAS INDONESIA';
+    sub = 'PORTAL SUPERVISI & RUANG GURU';
+    icon = '👥';
+    btnText = 'Masuk ke Sistem Supervisi';
+    btnBg = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
+    btnShadow = 'rgba(124, 58, 237, 0.35)';
+    accentColor = '#7c3aed';
+  }
+
+  // 1. Ambil koordinat awal kartu untuk efek FLIP smooth
+  const rect = card.getBoundingClientRect();
+  const initialWidth = rect.width;
+  const initialHeight = rect.height;
+  const initialTop = rect.top;
+  const initialLeft = rect.left;
+
+  // 2. Tampilkan backdrop gradien halus sesuai tema
+  let backdrop = document.getElementById('portalTransitionBackdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'portalTransitionBackdrop';
+    backdrop.className = `portal-transition-backdrop theme-${theme}`;
+    document.body.appendChild(backdrop);
+  } else {
+    backdrop.className = `portal-transition-backdrop theme-${theme}`;
+  }
+
+  // Force reflow agar transisi CSS langsung terbaca
+  backdrop.offsetHeight;
+  backdrop.classList.add('active');
+
+  // 3. Tambahkan efek debu pada seluruh elemen sekitar (semuanya menghilang bagai debu)
+  document.body.classList.add('portal-transitioning');
+
+  // 4. Kunci posisi kartu di koordinat awalnya
+  card.style.position = 'fixed';
+  card.style.top = initialTop + 'px';
+  card.style.left = initialLeft + 'px';
+  card.style.width = initialWidth + 'px';
+  card.style.height = initialHeight + 'px';
+  card.style.zIndex = '9999';
+  card.style.margin = '0';
+  card.classList.add('card-selected-morph');
+
+  // 5. Animasi kartu membesar ke tengah dan bertransformasi jadi form login
+  requestAnimationFrame(() => {
+    card.innerHTML = `
+      <div class="morph-login-preview">
+        <div class="morph-brand-badge badge-${theme}">
+          <span style="font-size: 1.35rem;">${icon}</span>
+          <div style="display:flex; flex-direction:column; min-width:0;">
+            <span style="font-size:0.75rem; font-weight:800; color:#1e293b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${school}</span>
+            <span style="font-size:0.63rem; font-weight:700; color:${accentColor}; letter-spacing:0.04em;">${sub}</span>
+          </div>
+        </div>
+        <div style="font-family:'Outfit', var(--font-main); font-size:1.3rem; font-weight:800; color:#0f172a; margin-top:2px;">
+          ${title}
+        </div>
+        <p style="font-size:0.8rem; color:#64748b; margin:0 0 4px; line-height:1.4;">
+          Menghubungkan ke server autentikasi...
+        </p>
+        <div class="morph-inputs-mock">
+          <div class="morph-input-row">
+            <span>👤</span>
+            <span>Email / Username</span>
+          </div>
+          <div class="morph-input-row">
+            <span>🔒</span>
+            <span>Kata Sandi</span>
+          </div>
+        </div>
+        <div style="width:100%; padding:0.82rem 1rem; border-radius:10px; background:${btnBg}; color:#ffffff; font-weight:700; font-size:0.88rem; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 4px 14px ${btnShadow}; margin-top:4px;">
+          <div class="morph-spinner-ring"></div>
+          <span>${btnText}</span>
+        </div>
+      </div>
+    `;
+
+    const targetWidth = Math.min(window.innerWidth * 0.92, 440);
+    const targetLeft = (window.innerWidth - targetWidth) / 2;
+    const targetTop = Math.max(20, (window.innerHeight - 380) / 2);
+
+    card.style.transition = 'all 0.55s cubic-bezier(0.16, 1, 0.3, 1)';
+    card.style.width = targetWidth + 'px';
+    card.style.height = 'auto';
+    card.style.minHeight = '360px';
+    card.style.left = targetLeft + 'px';
+    card.style.top = targetTop + 'px';
+    card.style.padding = '24px';
+  });
+
+  // 6. Alihkan ke URL tujuan setelah animasi selesai
+  setTimeout(() => {
+    window.location.href = targetUrl;
+  }, 620);
+}
+
+// Reset transisi saat kembali dari browser cache (bfcache)
+window.addEventListener('pageshow', () => {
+  isTransitioning = false;
+  document.body.classList.remove('portal-transitioning');
+  const backdrop = document.getElementById('portalTransitionBackdrop');
+  if (backdrop) backdrop.remove();
+  document.querySelectorAll('.portal-card').forEach(c => {
+    c.removeAttribute('style');
+    c.classList.remove('card-selected-morph');
+  });
+});
 
 // Alias untuk kompatibilitas jika masih dipanggil di tempat lain
 function openInNewTab(url, event) {
@@ -522,6 +677,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Auto-sync telemetry every 60 seconds
   setInterval(fetchManagerTelemetry, 60000);
+
+  // Jadikan seluruh card portal interaktif saat diklik
+  document.querySelectorAll('.portal-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-launch') || e.target.closest('a')) return;
+      const btn = card.querySelector('.btn-launch');
+      if (btn) btn.click();
+    });
+  });
 });
 
 // ============================================================================
