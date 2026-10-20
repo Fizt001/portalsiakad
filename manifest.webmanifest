@@ -36,5 +36,11 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "scope_extensions": [
+    { "origin": "https://yatindosystem.net" },
+    { "origin": "https://smk.yatindosystem.net" },
+    { "origin": "https://smp.yatindosystem.net" },
+    { "origin": "https://admsmk.yatindosystem.net" }
   ]
 }

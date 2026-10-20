@@ -1,0 +1,13 @@
+{
+  "web_apps": [
+    {
+      "manifest": "https://yatindosystem.net/manifest.json"
+    },
+    {
+      "manifest": "https://smk.yatindosystem.net/manifest.webmanifest"
+    },
+    {
+      "manifest": "https://smp.yatindosystem.net/manifest.webmanifest"
+    }
+  ]
+}
